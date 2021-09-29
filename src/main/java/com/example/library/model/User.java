@@ -25,6 +25,7 @@ public class User implements UserDetails {
     private String userName;
     @Column
     private String password;
+
     @OneToMany
     private List<Book> books;
 
