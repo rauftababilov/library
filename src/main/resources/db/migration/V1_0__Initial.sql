@@ -1,6 +1,5 @@
 create sequence seq_book increment 10;
 create sequence seq_user;
-create sequence seq_role;
 create sequence seq_author increment 10;
 create sequence seq_publishing_house increment 10;
 
@@ -12,6 +11,7 @@ create table "user"
     updated_at timestamp not null default current_timestamp,
     username   text      not null,
     password   text      not null,
+    deleted    boolean   not null default false,
     unique (username)
 );
 
@@ -81,4 +81,4 @@ create table book_author
     author_id bigint not null
         constraint book_author_author_fk references author,
     constraint book_author_pk primary key (book_id, author_id)
-)
+);

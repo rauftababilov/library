@@ -1,6 +1,7 @@
-package com.andersen.library.jpa.domain;
+package com.andersen.library.services.user.impl;
 
-import com.andersen.library.jpa.domain.base.DateAuditedEntity;
+
+import com.andersen.library.jpa.DateAuditedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -10,24 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 @Data
-@EqualsAndHashCode(callSuper = true, of = "id")
-@ToString(of = "id", callSuper = true)
-public class User extends DateAuditedEntity {
+@EqualsAndHashCode(callSuper = true, exclude = "roles")
+@ToString(callSuper = true, exclude = "roles")
+class User extends DateAuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     @SequenceGenerator(name = "user_generator", sequenceName = "seq_user", allocationSize = 1)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},

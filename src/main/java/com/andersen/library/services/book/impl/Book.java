@@ -1,6 +1,6 @@
 package com.andersen.library.services.book.impl;
 
-import com.andersen.library.jpa.domain.base.FullAuditedEntity;
+import com.andersen.library.jpa.FullAuditedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
