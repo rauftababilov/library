@@ -14,6 +14,6 @@ interface ClientRepository extends JpaRepository<Client, Long> {
             " order by c.updatedAt desc")
     Page<Client> findAllByFilter(String name, Integer yearOfBirth, Pageable pageable);
 
-    boolean existsByFullName(String fullName);
+    boolean existsByFullNameAndDeletedIsFalse(String fullName);
 
 }

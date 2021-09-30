@@ -6,6 +6,7 @@ import com.andersen.library.services.book.BookValidatorService;
 import com.andersen.library.services.book_audit.BookAuditService;
 import com.andersen.library.services.book_audit.model.BookAuditFilterDto;
 import com.andersen.library.services.book_audit.model.BookState;
+import com.andersen.library.services.publishing_house.PublishingHouseService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ class BookValidatorServiceImpl implements BookValidatorService {
 
     private final AuthorService authorService;
 
+    private final PublishingHouseService publishingHouseService;
+
     @Setter(onMethod_ = {@Autowired, @Lazy})
     private BookAuditService bookAuditService;
 
@@ -31,8 +34,8 @@ class BookValidatorServiceImpl implements BookValidatorService {
     }
 
     @Override
-    public void throwIfPublishingHouseIncorrect(Long publishingHouse) {
-        //TODO
+    public void throwIfPublishingHouseIncorrect(Long publishingHouseId) {
+        publishingHouseService.get(publishingHouseId);
     }
 
     @Override

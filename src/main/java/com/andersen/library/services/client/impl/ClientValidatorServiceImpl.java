@@ -23,7 +23,7 @@ class ClientValidatorServiceImpl implements ClientValidatorService {
 
     @Override
     public void throwIfClientAlreadyExists(String clientName) {
-        if (repository.existsByFullName(clientName)) {
+        if (repository.existsByFullNameAndDeletedIsFalse(clientName)) {
             throw ExceptionType.CLIENT_ALREADY_EXISTS.exception();
         }
     }
