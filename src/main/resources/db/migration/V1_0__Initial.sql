@@ -3,6 +3,8 @@ create sequence seq_user;
 create sequence seq_role;
 create sequence seq_author increment 10;
 create sequence seq_publishing_house increment 10;
+create sequence seq_record_keeping;
+create sequence seq_client;
 
 create table "user"
 (
@@ -42,7 +44,8 @@ create table publishing_house
     updated_by bigint    not null
         constraint publishing_house_user_update_fk references "user",
     updated_at timestamp not null default current_timestamp,
-    title      text      not null
+    title      text      not null,
+    unique (title)
 );
 
 create table book
@@ -81,4 +84,35 @@ create table book_author
     author_id bigint not null
         constraint book_author_author_fk references author,
     constraint book_author_pk primary key (book_id, author_id)
+);
+
+create table client
+(
+    id         bigint
+        constraint client_pk primary key,
+    created_by          bigint    not null
+        constraint client_create_fk references "user",
+    created_at          timestamp not null default current_timestamp,
+    updated_by          bigint    not null
+        constraint client_update_fk references "user",
+    updated_at          timestamp not null default current_timestamp,
+    full_name  text      not null,
+    unique (full_name)
+);
+
+create table record_keeping
+(
+    id         bigint
+        constraint record_keeping_pk primary key,
+    created_by          bigint    not null
+        constraint record_keeping_create_fk references "user",
+    created_at          timestamp not null default current_timestamp,
+    updated_by          bigint    not null
+        constraint record_keeping_update_fk references "user",
+    updated_at          timestamp not null default current_timestamp,
+    book_id   bigint not null
+        constraint record_keeping_book_house_fk references book,
+    client_id bigint not null
+        constraint record_keeping_client_house_fk references client,
+    book_state  text      not null
 )

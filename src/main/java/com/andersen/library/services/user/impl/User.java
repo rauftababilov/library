@@ -1,6 +1,7 @@
-package com.andersen.library.jpa.domain;
+package com.andersen.library.services.user.impl;
 
 import com.andersen.library.jpa.domain.base.DateAuditedEntity;
+import com.andersen.library.services.role.impl.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
