@@ -1,0 +1,12 @@
+
+${AnsiColor.BRIGHT_RED}         .8.
+${AnsiColor.BRIGHT_RED}        .888.
+${AnsiColor.BRIGHT_RED}       :88888.
+${AnsiColor.BRIGHT_RED}      . `88888.
+${AnsiColor.BRIGHT_RED}     .8. `88888.
+${AnsiColor.BRIGHT_RED}    .8`8. `88888.
+${AnsiColor.BRIGHT_RED}   .8' `8. `88888.
+${AnsiColor.BRIGHT_RED}  .8'   `8. `88888.
+${AnsiColor.BRIGHT_RED} .888888888. `88888.
+${AnsiColor.BRIGHT_RED}.8'       `8. `88888.
+${AnsiColor.DEFAULT}
