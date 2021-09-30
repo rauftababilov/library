@@ -1,18 +1,10 @@
 package com.andersen.library.services.publishing_house;
 
-import com.andersen.library.services.author.AuthorDto;
-import com.andersen.library.services.author.AuthorFilterDto;
+import com.andersen.library.services.publishing_house.model.PublishingHouseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PublishingHouseService {
-    /**
-     * Add publishingHouse to DB
-     *
-     * @param publishingHouseDto publishingHouseDto
-     * @return publishingHouseDto
-     */
-    PublishingHouseDto save(PublishingHouseDto publishingHouseDto);
 
     /**
      * Find all publishingHouses
@@ -20,16 +12,7 @@ public interface PublishingHouseService {
      * @param pageable pageable
      * @return list of publishingHouseDtos
      */
-    Page<PublishingHouseDto> findAll(Pageable pageable);
-
-    /**
-     * Find all publishingHouses by title
-     *
-     * @param title title
-     * @param pageable pageable
-     * @return list of publishingHouseDtos
-     */
-    Page<PublishingHouseDto> findAllByTitle(String title, Pageable pageable);
+    Page<PublishingHouseDto> getAll(Pageable pageable);
 
     /**
      * Find publishingHouse by id
@@ -37,23 +20,30 @@ public interface PublishingHouseService {
      * @param id id publishingHouse
      * @return publishingHouseDto
      */
-    PublishingHouseDto findById(Long id);
+    PublishingHouseDto get(Long id);
+
+    /**
+     * Add publishingHouse to DB
+     *
+     * @param dto publishingHouseDto
+     * @return publishingHouseDto
+     */
+    PublishingHouseDto create(PublishingHouseDto dto);
 
     /**
      * Update publishingHouse in DB
      *
-     * @param id id
-     * @param publishingHouseDto publishingHouseDto
+     * @param id  id
+     * @param dto publishingHouseDto
      * @return updated publishingHouseDto
      */
-    PublishingHouseDto update(Long id, PublishingHouseDto publishingHouseDto);
+    PublishingHouseDto update(Long id, PublishingHouseDto dto);
 
     /**
      * Delete publishingHouse by id from DB
      *
      * @param id of publishingHouse
      */
-    void delete(Long id);
+    void softDelete(Long id);
+
 }
-
-

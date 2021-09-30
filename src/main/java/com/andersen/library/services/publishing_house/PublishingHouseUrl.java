@@ -2,7 +2,7 @@ package com.andersen.library.services.publishing_house;
 
 public interface PublishingHouseUrl {
 
-    String RESOURCE_NAME = "/publishingHouses";
+    String RESOURCE_NAME = "/publishing-houses";
 
     String ID = "/{publishingHouseId}";
 

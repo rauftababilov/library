@@ -17,17 +17,17 @@ class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping(AuthorUrl.GET)
-    public AuthorDto findById(@PathVariable Long authorId) {
+    public AuthorDto get(@PathVariable Long authorId) {
         return authorService.get(authorId);
     }
 
     @GetMapping(AuthorUrl.FIND)
-    public Page<AuthorDto> findAllByFilter(Pageable pageable) {
+    public Page<AuthorDto> getAll(Pageable pageable) {
         return authorService.getAll(pageable);
     }
 
     @PostMapping(AuthorUrl.CREATE)
-    public AuthorDto save(@Valid @RequestBody AuthorDto authorDto) {
+    public AuthorDto create(@Valid @RequestBody AuthorDto authorDto) {
         return authorService.create(authorDto);
     }
 
@@ -38,7 +38,7 @@ class AuthorController {
 
     @DeleteMapping(AuthorUrl.DELETE)
     public void delete(@PathVariable Long authorId) {
-        authorService.delete(authorId);
+        authorService.softDelete(authorId);
     }
 
 }

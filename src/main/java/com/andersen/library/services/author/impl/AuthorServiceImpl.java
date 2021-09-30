@@ -56,7 +56,7 @@ class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void softDelete(Long id) {
         Author author = authorRepository.findById(id).orElseThrow(ExceptionType.AUTHOR_NOT_FOUND::exception);
 
         validatorService.throwIfAuthorDeleted(author.isDeleted());

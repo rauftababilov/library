@@ -1,8 +1,9 @@
 package com.andersen.library.services.publishing_house.impl;
 
 import com.andersen.library.exceptions.ExceptionType;
-import com.andersen.library.services.publishing_house.PublishingHouseDto;
 import com.andersen.library.services.publishing_house.PublishingHouseService;
+import com.andersen.library.services.publishing_house.PublishingHouseValidatorService;
+import com.andersen.library.services.publishing_house.model.PublishingHouseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,63 +11,66 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PublishingHouseServiceImpl implements PublishingHouseService {
+class PublishingHouseServiceImpl implements PublishingHouseService {
 
-    private final PublishingHouseRepository publishingHouseRepository;
-    private final PublishingHouseMapper publishingHouseMapper;
-    private final PublishingHouseValidatorService publishingHouseValidatorService;
+    private final PublishingHouseRepository repository;
+
+    private final PublishingHouseMapper mapper;
+
+    private final PublishingHouseValidatorService validatorService;
 
     @Override
-    public PublishingHouseDto save(PublishingHouseDto publishingHouseDto) {
+    public PublishingHouseDto create(PublishingHouseDto dto) {
         PublishingHouse publishingHouse = new PublishingHouse();
-        publishingHouseValidatorService.throwIfTitleIncorrect(publishingHouseDto.getTitle());
 
-        publishingHouseRepository.save(publishingHouse);
+        validatorService.throwIfPublishingHouseAlreadyExists(dto.getTitle());
 
-        return publishingHouseMapper.toDto(publishingHouse);
+        publishingHouse.setTitle(dto.getTitle());
+
+        publishingHouse = repository.save(publishingHouse);
+
+        return mapper.toDto(publishingHouse);
     }
 
     @Override
-    public Page<PublishingHouseDto> findAll(Pageable pageable) {
-        return publishingHouseRepository.findAll(pageable)
-                .map(publishingHouseMapper::toDto);
+    public Page<PublishingHouseDto> getAll(Pageable pageable) {
+        return repository.findAllByDeletedIsFalse(pageable).map(mapper::toDto);
     }
 
     @Override
-    public Page<PublishingHouseDto> findAllByTitle(String title, Pageable pageable) {
-        return publishingHouseRepository.findAllByTitle(title, pageable)
-                .map(publishingHouseMapper::toDto);
-    }
-
-    @Override
-    public PublishingHouseDto findById(Long id) {
-        return publishingHouseRepository.findById(id)
-                .map(publishingHouseMapper::toDto)
+    public PublishingHouseDto get(Long id) {
+        return repository.findById(id)
+                .map(mapper::toDto)
                 .orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
     }
 
     @Override
-    public PublishingHouseDto update(Long id, PublishingHouseDto publishingHouseDto) {
-        PublishingHouse publishingHouse = publishingHouseRepository.findById(id).orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
+    public PublishingHouseDto update(Long id, PublishingHouseDto dto) {
+        PublishingHouse publishingHouse = repository.findById(id).orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
 
-        publishingHouseValidatorService.throwIfTitleIncorrect(publishingHouseDto.getTitle());
+        validatePublishingHouseOnUpdate(dto, publishingHouse);
 
-        publishingHouse.setTitle(publishingHouseDto.getTitle());
+        publishingHouse.setTitle(dto.getTitle());
 
-        publishingHouseRepository.save(publishingHouse);
+        publishingHouse = repository.save(publishingHouse);
 
-        return publishingHouseMapper.toDto(publishingHouse);
+        return mapper.toDto(publishingHouse);
     }
 
     @Override
-    public void delete(Long id) {
-        PublishingHouse publishingHouse = publishingHouseRepository.findById(id).orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
+    public void softDelete(Long id) {
+        PublishingHouse publishingHouse = repository.findById(id).orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
 
-        publishingHouseRepository.delete(publishingHouse);
+        validatorService.throwIfPublishingHouseDeleted(publishingHouse.isDeleted());
+
+        publishingHouse.setDeleted(true);
+
+        repository.save(publishingHouse);
     }
+
+    private void validatePublishingHouseOnUpdate(PublishingHouseDto dto, PublishingHouse publishingHouse) {
+        validatorService.throwIfNewTitleNotAllowed(publishingHouse.getTitle(), dto.getTitle());
+        validatorService.throwIfPublishingHouseDeleted(publishingHouse.isDeleted());
+    }
+
 }
-
-
-
-
-

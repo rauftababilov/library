@@ -44,6 +44,6 @@ public interface AuthorService {
      *
      * @param id of author
      */
-    void delete(Long id);
+    void softDelete(Long id);
 
 }

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class PublishingHouse extends FullAuditedEntity {
+class PublishingHouse extends FullAuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "publishing_house_generator")
@@ -22,5 +22,8 @@ public class PublishingHouse extends FullAuditedEntity {
 
     @Column(name = "title")
     private String title;
+
+    @Column(name = "deleted")
+    private boolean deleted;
 
 }

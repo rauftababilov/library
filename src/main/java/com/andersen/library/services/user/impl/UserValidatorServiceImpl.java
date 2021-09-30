@@ -13,7 +13,7 @@ class UserValidatorServiceImpl implements UserValidatorService {
 
     @Override
     public void throwIfUserAlreadyExists(String username) {
-        if (repository.existsByUsername(username)) {
+        if (repository.existsByUsernameAndDeletedIsFalse(username)) {
             throw ExceptionType.USER_ALREADY_EXISTS.exception();
         }
     }

@@ -26,6 +26,8 @@ public enum ExceptionType {
     AUTHOR_DELETED("Author deleted", HttpStatus.CONFLICT),
 
     PUBLISHING_HOUSE_NOT_FOUND("Publishing house was not found", HttpStatus.NOT_FOUND),
+    PUBLISHING_HOUSE_ALREADY_EXISTS("Publishing house already exists", HttpStatus.CONFLICT),
+    PUBLISHING_HOUSE_DELETED("Publishing house deleted", HttpStatus.CONFLICT),
 
     AUDIT_RECORD_NOT_FOUND("Audit record was not found", HttpStatus.NOT_FOUND),
     BOOK_GIVEN("Current book is already given", HttpStatus.CONFLICT),
