@@ -1,6 +1,5 @@
 create sequence seq_book increment 10;
 create sequence seq_user;
-create sequence seq_role;
 create sequence seq_author increment 10;
 create sequence seq_publishing_house increment 10;
 create sequence seq_record_keeping increment 20;
@@ -14,6 +13,7 @@ create table "user"
     updated_at timestamp not null default current_timestamp,
     username   text      not null,
     password   text      not null,
+    deleted    boolean   not null default false,
     unique (username)
 );
 
@@ -116,4 +116,4 @@ create table record_keeping
     client_id bigint not null
         constraint record_keeping_client_fk references client,
     book_state  text      not null
-)
+);
