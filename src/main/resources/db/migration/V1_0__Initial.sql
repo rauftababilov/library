@@ -97,6 +97,7 @@ create table client
         constraint client_user_update_fk references "user",
     updated_at          timestamp not null default current_timestamp,
     full_name  text      not null,
+    birthday   date      not null,
     unique (full_name)
 );
 

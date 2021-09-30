@@ -4,29 +4,30 @@ import com.andersen.library.jpa.domain.base.FullAuditedEntity;
 import com.andersen.library.jpa.domain.enums.BookState;
 import com.andersen.library.services.book.impl.Book;
 import com.andersen.library.services.client.impl.Client;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Setter
-@Getter
+
 @Entity
 @Table(name = "record_keeping")
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class RecordKeeping extends FullAuditedEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record_keeping_generator")
     @SequenceGenerator(name = "record_keeping_generator", sequenceName = "seq_record_keeping", allocationSize = 20)
     private Long id;
 
-    @JoinColumn(name = "book_id", nullable = false)
+    @Column(name = "book_id")
     private Long bookId;
 
-    @Column(name = "client_id", nullable = false)
+    @Column(name = "client_id")
     private Long clientId;
 
     @Column(name = "book_state")
     @Enumerated(value = EnumType.STRING)
     private BookState bookState;
+
 }

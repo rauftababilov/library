@@ -1,17 +1,18 @@
 package com.andersen.library.services.client.impl;
 
 import com.andersen.library.jpa.domain.base.FullAuditedEntity;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "client")
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Client extends FullAuditedEntity {
 
     @Id
@@ -21,4 +22,8 @@ public class Client extends FullAuditedEntity {
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
+
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
+
 }
