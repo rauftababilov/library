@@ -20,7 +20,7 @@ public class BookDto {
     private Integer publishYear;
 
     @NotNull
-    @Min(0)
+    @Min(1)
     private Long publishingHouseId;
 
     @NotEmpty
