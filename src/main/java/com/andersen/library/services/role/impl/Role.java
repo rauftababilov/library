@@ -1,5 +1,6 @@
-package com.andersen.library.jpa.domain;
+package com.andersen.library.services.role.impl;
 
+import com.andersen.library.services.user.impl.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
