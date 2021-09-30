@@ -1,4 +1,4 @@
-package com.andersen.library.services.book;
+package com.andersen.library.services.book.dto;
 
 import lombok.Data;
 

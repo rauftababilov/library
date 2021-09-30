@@ -1,6 +1,7 @@
 package com.andersen.library.services.book.impl;
 
 import com.andersen.library.exceptions.ExceptionType;
+import com.andersen.library.services.book.BookValidatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,17 +10,20 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class BookValidatorService {
+class BookValidatorServiceImpl implements BookValidatorService {
 
-    void throwIfAuthorsIncorrect(List<Long> authorIds) {
+    @Override
+    public void throwIfAuthorsIncorrect(List<Long> authorIds) {
         //TODO
     }
 
-    void throwIfPublishingHouseIncorrect(Long publishingHouse) {
+    @Override
+    public void throwIfPublishingHouseIncorrect(Long publishingHouse) {
         //TODO
     }
 
-    void throwIfPublishYearIncorrect(Integer publishYear) {
+    @Override
+    public void throwIfPublishYearIncorrect(Integer publishYear) {
         if (Year.now().getValue() < publishYear) {
             throw ExceptionType.BOOK_PUBLISH_YEAR_INCORRECT.exception();
         }

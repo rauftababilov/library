@@ -4,7 +4,7 @@ create sequence seq_role;
 create sequence seq_author increment 10;
 create sequence seq_publishing_house increment 10;
 
-create table "usr"
+create table "user"
 (
     id         bigint
         constraint user_pk primary key,
@@ -12,6 +12,7 @@ create table "usr"
     updated_at timestamp not null default current_timestamp,
     username   text      not null,
     password   text      not null,
+    deleted    boolean   not null default false,
     unique (username)
 );
 
@@ -28,7 +29,7 @@ create table user_role
     role_id bigint not null
         constraint user_role_role_fk references "role",
     user_id bigint not null
-        constraint user_role_user_fk references "usr",
+        constraint user_role_user_fk references "user",
     constraint user_role_pk primary key (role_id, user_id)
 );
 
@@ -37,10 +38,10 @@ create table publishing_house
     id         bigint
         constraint publishing_house_pk primary key,
     created_by bigint    not null
-        constraint publishing_house_user_create_fk references "usr",
+        constraint publishing_house_user_create_fk references "user",
     created_at timestamp not null default current_timestamp,
     updated_by bigint    not null
-        constraint publishing_house_user_update_fk references "usr",
+        constraint publishing_house_user_update_fk references "user",
     updated_at timestamp not null default current_timestamp,
     title      text      not null
 );
@@ -50,10 +51,10 @@ create table book
     id                  bigint
         constraint book_pk primary key,
     created_by          bigint    not null
-        constraint book_user_create_fk references "usr",
+        constraint book_user_create_fk references "user",
     created_at          timestamp not null default current_timestamp,
     updated_by          bigint    not null
-        constraint book_user_update_fk references "usr",
+        constraint book_user_update_fk references "user",
     updated_at          timestamp not null default current_timestamp,
     title               text      not null,
     publish_year        int       not null,
@@ -66,10 +67,10 @@ create table author
     id         bigint
         constraint author_pk primary key,
     created_by bigint    not null
-        constraint author_user_create_fk references "usr",
+        constraint author_user_create_fk references "user",
     created_at timestamp not null default current_timestamp,
     updated_by bigint    not null
-        constraint author_user_update_fk references "usr",
+        constraint author_user_update_fk references "user",
     updated_at timestamp not null default current_timestamp,
     full_name  text      not null
 );
@@ -82,6 +83,3 @@ create table book_author
         constraint book_author_author_fk references author,
     constraint book_author_pk primary key (book_id, author_id)
 );
-
-
-

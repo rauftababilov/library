@@ -1,4 +1,4 @@
-package com.andersen.library.jpa.domain.base;
+package com.andersen.library.jpa;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

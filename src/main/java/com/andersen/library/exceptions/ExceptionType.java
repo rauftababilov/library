@@ -16,7 +16,9 @@ public enum ExceptionType {
     BOOK_NOT_FOUND("List was not found", HttpStatus.NOT_FOUND),
     BOOK_PUBLISH_YEAR_INCORRECT("Publish year incorrect", HttpStatus.BAD_REQUEST),
 
-    USER_NOT_FOUND("User not found", HttpStatus.NOT_FOUND);
+    USER_NOT_FOUND("User not found", HttpStatus.NOT_FOUND),
+    USER_DELETED("User deleted", HttpStatus.CONFLICT),
+    USER_ALREADY_EXISTS("User already exists", HttpStatus.CONFLICT);
 
     @JsonValue
     private final String message;
