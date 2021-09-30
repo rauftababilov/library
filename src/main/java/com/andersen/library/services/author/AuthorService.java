@@ -1,53 +1,49 @@
 package com.andersen.library.services.author;
 
-import com.andersen.library.services.author.impl.Author;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface AuthorService{
     /**
      * Add author to DB
      *
-     * @param author author
-     * @return author
+     * @param authorDto author
+     * @return authorDto
      */
-    Author save(Author author);
+    AuthorDto save(AuthorDto authorDto);
 
     /**
      * Find all authors
      *
-     * @return list of authors
+     * @param authorFilterDto authorFilterDto
+     * @param pageable pageable
+     * @return list of authorDtos
      */
-    List<Author> findAll();
+    Page<AuthorDto> findAllByFilter(AuthorFilterDto authorFilterDto, Pageable pageable);
 
     /**
      * Find author by id
      *
      * @param id id author
-     * @return author
+     * @return authorDto
      */
-    Author findById(Long id);
+    AuthorDto findById(Long id);
 
     /**
-     * Поиск всех авторов с указанной фамилией в БД
+     * Update author in DB
      *
-     * @param firstName firstName
-     * @return list of authors
+     * @param id id
+     * @param authorDto author
+     * @return updated authorDto
      */
-    List<Author> findAllByFirstName(String firstName);
+    AuthorDto update(Long id, AuthorDto authorDto);
 
     /**
-     * Редактирование автора в БД
-     *
-     * @param author author
-     * @return updated author
-     */
-    Author update(Author author);
-
-    /**
-     * Удаление автора по id из БД
+     * Delete author by id from DB
      *
      * @param id of author
      */
     void delete(Long id);
 }
+
+

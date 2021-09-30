@@ -26,12 +26,8 @@ public class Author extends FullAuditedEntity {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "book_author",
-            joinColumns = {@JoinColumn(name = "author_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<Book> books = new ArrayList<>();
-
+    @ElementCollection
+    @CollectionTable(name = "book_author", joinColumns = @JoinColumn(name = "author_id"))
+    @Column(name = "book_id")
+    private List<Long> bookIds = new ArrayList<>();
 }
