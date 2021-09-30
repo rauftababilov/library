@@ -1,6 +1,6 @@
 -- for test security purposes
 insert into usr (id, username, password)
-values (1, 'admin', 123);
+values (1, 'admin', '$2a$10$1NCuFOi0EnOuk.63SjVya.XCgwGNlhJ87WRJ5seA4hy12bcNE7rG6');
 
 insert into role(id, name)
 values (1, 'ADMIN');

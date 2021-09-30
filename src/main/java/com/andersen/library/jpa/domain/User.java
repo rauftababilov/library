@@ -3,7 +3,10 @@ package com.andersen.library.jpa.domain;
 import com.andersen.library.jpa.domain.base.DateAuditedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,5 +37,4 @@ public class User extends DateAuditedEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private List<Role> roles = new ArrayList<>();
-
 }

@@ -1,6 +1,7 @@
 package com.andersen.library.config;
 
 import com.andersen.library.jpa.domain.User;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
