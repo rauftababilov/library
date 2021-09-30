@@ -1,6 +1,9 @@
 package com.andersen.library.jpa.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,7 +11,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "role")
+@Immutable
 @Data
+@EqualsAndHashCode(of = "id")
+@ToString(of = "id")
 public class Role {
 
     @Id

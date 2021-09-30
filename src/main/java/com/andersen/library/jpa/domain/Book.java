@@ -1,8 +1,9 @@
 package com.andersen.library.jpa.domain;
 
-import com.andersen.library.jpa.domain.base.FullAuditedDto;
+import com.andersen.library.jpa.domain.base.FullAuditedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,12 +12,13 @@ import java.util.List;
 @Entity
 @Table(name = "book")
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Book extends FullAuditedDto {
+@EqualsAndHashCode(callSuper = true, of = "id")
+@ToString(of = "id", callSuper = true)
+public class Book extends FullAuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
-    @SequenceGenerator(name = "book_generator", sequenceName = "seq_book", allocationSize = 1)
+    @SequenceGenerator(name = "book_generator", sequenceName = "seq_book", allocationSize = 10)
     private Long id;
 
     @Column(name = "title", nullable = false)

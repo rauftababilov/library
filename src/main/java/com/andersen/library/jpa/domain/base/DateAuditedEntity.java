@@ -10,9 +10,9 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@Data
 public class DateAuditedEntity {
 
     @Column(name = "created_at")
