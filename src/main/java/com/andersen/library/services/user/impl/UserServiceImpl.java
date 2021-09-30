@@ -4,7 +4,7 @@ import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.security.PredefinedRole;
 import com.andersen.library.services.user.UserService;
 import com.andersen.library.services.user.UserValidatorService;
-import com.andersen.library.services.user.dto.UserDto;
+import com.andersen.library.services.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -67,7 +67,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto softDelete(Long id) {
+    public void softDelete(Long id) {
         User user = repository.findById(id).orElseThrow(ExceptionType.USER_NOT_FOUND::exception);
 
         if (user.getRoles().stream().anyMatch(x -> x.getName().equals(PredefinedRole.ROOT))) {
@@ -76,9 +76,7 @@ class UserServiceImpl implements UserService {
 
         user.setDeleted(true);
 
-        user = repository.save(user);
-
-        return mapper.toDto(user);
+        repository.save(user);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.andersen.library.services.book.dto;
+package com.andersen.library.services.book.model;
 
 import lombok.Data;
 
@@ -25,5 +25,8 @@ public class BookDto {
 
     @NotEmpty
     private List<Long> authorIds = new LinkedList<>();
+
+    @AssertFalse
+    private boolean deleted;
 
 }

@@ -3,8 +3,8 @@ package com.andersen.library.services.book.impl;
 import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.services.book.BookService;
 import com.andersen.library.services.book.BookValidatorService;
-import com.andersen.library.services.book.dto.BookDto;
-import com.andersen.library.services.book.dto.BookFilterDto;
+import com.andersen.library.services.book.model.BookDto;
+import com.andersen.library.services.book.model.BookFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ class BookServiceImpl implements BookService {
 
     @Override
     public Page<BookDto> getAll(BookFilterDto filterDto, Pageable pageable) {
-        return repository.findAllWithFilter(filterDto.getAuthorId(), filterDto.getPublishingHouseId(), pageable)
+        return repository.findAllByFilter(filterDto.getAuthorId(), filterDto.getPublishingHouseId(), pageable)
                 .map(mapper::toDto);
     }
 
@@ -37,7 +37,7 @@ class BookServiceImpl implements BookService {
     public BookDto create(BookDto dto) {
         Book book = new Book();
 
-        validateBook(dto);
+        validateBookOnCreate(dto);
 
         mapper.populateEmptyBook(book, dto);
 
@@ -47,10 +47,10 @@ class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto fullUpdate(Long id, BookDto dto) {
+    public BookDto update(Long id, BookDto dto) {
         Book book = repository.findById(id).orElseThrow(ExceptionType.BOOK_NOT_FOUND::exception);
 
-        validateBook(dto);
+        validateBookOnUpdate(dto);
 
         mapper.updateBookData(book, dto);
 
@@ -60,16 +60,30 @@ class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void softDelete(Long id) {
         Book book = repository.findById(id).orElseThrow(ExceptionType.BOOK_NOT_FOUND::exception);
 
-        repository.delete(book);
+        validateOnBookDelete(id, book);
+
+        book.setDeleted(true);
+
+        repository.save(book);
     }
 
-    private void validateBook(BookDto dto) {
+    private void validateOnBookDelete(Long id, Book book) {
+        validatorService.throwIfBookGiven(id);
+        validatorService.throwIfBookDeleted(book.isDeleted());
+    }
+
+    private void validateBookOnCreate(BookDto dto) {
         validatorService.throwIfAuthorsIncorrect(dto.getAuthorIds());
         validatorService.throwIfPublishingHouseIncorrect(dto.getPublishingHouseId());
         validatorService.throwIfPublishYearIncorrect(dto.getPublishYear());
+    }
+
+    private void validateBookOnUpdate(BookDto dto) {
+        validateBookOnCreate(dto);
+        validatorService.throwIfBookDeleted(dto.isDeleted());
     }
 
 }

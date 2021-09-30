@@ -2,7 +2,7 @@ package com.andersen.library.services.user.impl;
 
 import com.andersen.library.services.user.UserService;
 import com.andersen.library.services.user.UserUrl;
-import com.andersen.library.services.user.dto.UserDto;
+import com.andersen.library.services.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +25,8 @@ class UserController {
     }
 
     @DeleteMapping(UserUrl.DELETE)
-    public UserDto delete(@PathVariable Long userId) {
-        return userService.softDelete(userId);
+    public void delete(@PathVariable Long userId) {
+        userService.softDelete(userId);
     }
 
 

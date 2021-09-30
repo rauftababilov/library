@@ -1,4 +1,4 @@
-package com.andersen.library.services.user.dto;
+package com.andersen.library.services.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
