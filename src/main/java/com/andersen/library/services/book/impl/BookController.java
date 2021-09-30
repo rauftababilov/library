@@ -1,7 +1,7 @@
 package com.andersen.library.services.book.impl;
 
-import com.andersen.library.services.book.BookDto;
-import com.andersen.library.services.book.BookFilterDto;
+import com.andersen.library.services.book.dto.BookDto;
+import com.andersen.library.services.book.dto.BookFilterDto;
 import com.andersen.library.services.book.BookService;
 import com.andersen.library.services.book.BookUrl;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ class BookController {
         return bookService.create(dto);
     }
 
-    @PatchMapping(BookUrl.UPDATE)
+    @PutMapping(BookUrl.UPDATE)
     public BookDto update(@PathVariable Long bookId, @Valid @RequestBody BookDto dto) {
         return bookService.fullUpdate(bookId, dto);
     }
