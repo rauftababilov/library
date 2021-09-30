@@ -2,6 +2,7 @@ package com.andersen.library.jpa.domain;
 
 
 import com.andersen.library.jpa.domain.base.FullAuditedEntity;
+import com.andersen.library.services.book.impl.Book;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
