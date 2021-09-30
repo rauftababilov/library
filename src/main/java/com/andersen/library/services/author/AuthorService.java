@@ -1,25 +1,18 @@
 package com.andersen.library.services.author;
 
+import com.andersen.library.services.author.model.AuthorDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface AuthorService{
-    /**
-     * Add author to DB
-     *
-     * @param authorDto author
-     * @return authorDto
-     */
-    AuthorDto save(AuthorDto authorDto);
+public interface AuthorService {
 
     /**
      * Find all authors
      *
-     * @param authorFilterDto authorFilterDto
      * @param pageable pageable
      * @return list of authorDtos
      */
-    Page<AuthorDto> findAllByFilter(AuthorFilterDto authorFilterDto, Pageable pageable);
+    Page<AuthorDto> getAll(Pageable pageable);
 
     /**
      * Find author by id
@@ -27,12 +20,20 @@ public interface AuthorService{
      * @param id id author
      * @return authorDto
      */
-    AuthorDto findById(Long id);
+    AuthorDto get(Long id);
+
+    /**
+     * Add author to DB
+     *
+     * @param authorDto author
+     * @return authorDto
+     */
+    AuthorDto create(AuthorDto authorDto);
 
     /**
      * Update author in DB
      *
-     * @param id id
+     * @param id        id
      * @param authorDto author
      * @return updated authorDto
      */
@@ -44,6 +45,5 @@ public interface AuthorService{
      * @param id of author
      */
     void delete(Long id);
+
 }
-
-

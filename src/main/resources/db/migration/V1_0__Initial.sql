@@ -1,9 +1,8 @@
 create sequence seq_book increment 10;
 create sequence seq_user;
-create sequence seq_role;
 create sequence seq_author increment 10;
 create sequence seq_publishing_house increment 10;
-create sequence seq_record_keeping increment 20;
+create sequence seq_book_audit increment 20;
 create sequence seq_client increment 10;
 
 create table "user"
@@ -14,6 +13,7 @@ create table "user"
     updated_at timestamp not null default current_timestamp,
     username   text      not null,
     password   text      not null,
+    deleted    boolean   not null default false,
     unique (username)
 );
 
@@ -45,6 +45,7 @@ create table publishing_house
         constraint publishing_house_user_update_fk references "user",
     updated_at timestamp not null default current_timestamp,
     title      text      not null,
+    deleted    boolean   not null default false,
     unique (title)
 );
 
@@ -60,6 +61,7 @@ create table book
     updated_at          timestamp not null default current_timestamp,
     title               text      not null,
     publish_year        int       not null,
+    deleted             boolean   not null default false,
     publishing_house_id bigint    not null
         constraint book_publishing_house_fk references publishing_house
 );
@@ -74,7 +76,8 @@ create table author
     updated_by bigint    not null
         constraint author_user_update_fk references "user",
     updated_at timestamp not null default current_timestamp,
-    full_name  text      not null
+    full_name  text      not null,
+    deleted    boolean   not null default false
 );
 
 create table book_author
@@ -90,30 +93,31 @@ create table client
 (
     id         bigint
         constraint client_pk primary key,
-    created_by          bigint    not null
+    created_by bigint    not null
         constraint client_user_create_fk references "user",
-    created_at          timestamp not null default current_timestamp,
-    updated_by          bigint    not null
+    created_at timestamp not null default current_timestamp,
+    updated_by bigint    not null
         constraint client_user_update_fk references "user",
-    updated_at          timestamp not null default current_timestamp,
+    updated_at timestamp not null default current_timestamp,
     full_name  text      not null,
     birthday   date      not null,
+    deleted    boolean   not null default false,
     unique (full_name)
 );
 
-create table record_keeping
+create table book_audit
 (
     id         bigint
-        constraint record_keeping_pk primary key,
-    created_by          bigint    not null
-        constraint record_keeping_user_create_fk references "user",
-    created_at          timestamp not null default current_timestamp,
-    updated_by          bigint    not null
-        constraint record_keeping_user_update_fk references "user",
-    updated_at          timestamp not null default current_timestamp,
-    book_id   bigint not null
-        constraint record_keeping_book_fk references book,
-    client_id bigint not null
-        constraint record_keeping_client_fk references client,
-    book_state  text      not null
-)
+        constraint book_audit_pk primary key,
+    created_by bigint    not null
+        constraint book_audit_user_create_fk references "user",
+    created_at timestamp not null default current_timestamp,
+    updated_by bigint    not null
+        constraint book_audit_user_update_fk references "user",
+    updated_at timestamp not null default current_timestamp,
+    book_id    bigint    not null
+        constraint book_audit_book_fk references book,
+    client_id  bigint    not null
+        constraint book_audit_client_fk references client,
+    book_state text      not null
+);

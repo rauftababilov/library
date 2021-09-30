@@ -1,6 +1,6 @@
 package com.andersen.library.services.user;
 
-import com.andersen.library.services.user.dto.UserDto;
+import com.andersen.library.services.user.model.UserDto;
 
 public interface UserService {
 
@@ -10,6 +10,6 @@ public interface UserService {
 
     UserDto create(UserDto dto);
 
-    UserDto softDelete(Long id);
+    void softDelete(Long id);
 
 }

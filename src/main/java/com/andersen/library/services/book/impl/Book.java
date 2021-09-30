@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Book extends FullAuditedEntity {
+class Book extends FullAuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
@@ -34,5 +34,8 @@ public class Book extends FullAuditedEntity {
 
     @Column(name = "publishing_house_id", nullable = false)
     private Long publishingHouseId;
+
+    @Column(name = "deleted")
+    private boolean deleted;
 
 }

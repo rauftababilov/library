@@ -1,8 +1,8 @@
-package com.andersen.library.services.record_keeping;
+package com.andersen.library.services.book_audit;
 
-public interface RecordKeepingUrl {
+public interface BookAuditUrl {
 
-    String RESOURCE_NAME = "/audit";
+    String RESOURCE_NAME = "/book-audit";
 
     String ID = "/{auditId}";
 

@@ -1,6 +1,6 @@
 package com.andersen.library.services.book.impl;
 
-import com.andersen.library.services.book.dto.BookDto;
+import com.andersen.library.services.book.model.BookDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = BookServiceImpl.class)

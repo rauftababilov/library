@@ -1,6 +1,6 @@
 package com.andersen.library.services.user.impl;
 
-import com.andersen.library.services.user.dto.UserDto;
+import com.andersen.library.services.user.model.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

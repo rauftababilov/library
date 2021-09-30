@@ -1,7 +1,7 @@
 package com.andersen.library.services.client.impl;
 
-import com.andersen.library.services.client.ClientDto;
-import com.andersen.library.services.client.ClientFilterDto;
+import com.andersen.library.services.client.model.ClientDto;
+import com.andersen.library.services.client.model.ClientFilterDto;
 import com.andersen.library.services.client.ClientService;
 import com.andersen.library.services.client.ClientUrl;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +32,14 @@ class ClientController {
         return clientService.create(dto);
     }
 
-    @PatchMapping(ClientUrl.UPDATE)
+    @PutMapping(ClientUrl.UPDATE)
     public ClientDto update(@PathVariable Long clientId, @Valid @RequestBody ClientDto dto) {
-        return clientService.fullUpdate(clientId, dto);
+        return clientService.update(clientId, dto);
     }
 
     @DeleteMapping(ClientUrl.DELETE)
     public void delete(@PathVariable Long clientId) {
-        clientService.delete(clientId);
+        clientService.softDelete(clientId);
     }
 
 }

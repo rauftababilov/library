@@ -1,7 +1,6 @@
 package com.andersen.library.services.author.impl;
 
-import com.andersen.library.services.author.AuthorDto;
-import com.andersen.library.services.author.AuthorFilterDto;
+import com.andersen.library.services.author.model.AuthorDto;
 import com.andersen.library.services.author.AuthorService;
 import com.andersen.library.services.author.AuthorUrl;
 import lombok.RequiredArgsConstructor;
@@ -19,20 +18,20 @@ class AuthorController {
 
     @GetMapping(AuthorUrl.GET)
     public AuthorDto findById(@PathVariable Long authorId) {
-        return authorService.findById(authorId);
+        return authorService.get(authorId);
     }
 
     @GetMapping(AuthorUrl.FIND)
-    public Page<AuthorDto> findAllByFilter(AuthorFilterDto authorFilterDto, Pageable pageable) {
-        return authorService.findAllByFilter(authorFilterDto, pageable);
+    public Page<AuthorDto> findAllByFilter(Pageable pageable) {
+        return authorService.getAll(pageable);
     }
 
     @PostMapping(AuthorUrl.CREATE)
     public AuthorDto save(@Valid @RequestBody AuthorDto authorDto) {
-        return authorService.save(authorDto);
+        return authorService.create(authorDto);
     }
 
-    @PatchMapping(AuthorUrl.UPDATE)
+    @PutMapping(AuthorUrl.UPDATE)
     public AuthorDto update(@PathVariable Long authorId, @Valid @RequestBody AuthorDto authorDto) {
         return authorService.update(authorId, authorDto);
     }
@@ -41,4 +40,5 @@ class AuthorController {
     public void delete(@PathVariable Long authorId) {
         authorService.delete(authorId);
     }
+
 }

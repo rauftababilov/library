@@ -1,9 +1,10 @@
 package com.andersen.library.services.client.impl;
 
 import com.andersen.library.exceptions.ExceptionType;
-import com.andersen.library.services.client.ClientDto;
-import com.andersen.library.services.client.ClientFilterDto;
 import com.andersen.library.services.client.ClientService;
+import com.andersen.library.services.client.ClientValidatorService;
+import com.andersen.library.services.client.model.ClientDto;
+import com.andersen.library.services.client.model.ClientFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,8 @@ class ClientServiceImpl implements ClientService {
 
     @Override
     public Page<ClientDto> getAll(ClientFilterDto filterDto, Pageable pageable) {
-        return null;
+        return repository.findAllByFilter(filterDto.getFullName(), filterDto.getYearOfBirth(), pageable)
+                .map(mapper::toDto);
     }
 
     @Override
@@ -37,8 +39,7 @@ class ClientServiceImpl implements ClientService {
 
         validatorService.throwIfClientAlreadyExists(dto.getFullName());
 
-        client.setBirthday(dto.getBirthday());
-        client.setFullName(dto.getFullName());
+        mapper.populateClientEntityByDto(client, dto);
 
         client = repository.save(client);
 
@@ -46,13 +47,12 @@ class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto fullUpdate(Long id, ClientDto dto) {
+    public ClientDto update(Long id, ClientDto dto) {
         Client client = repository.findById(id).orElseThrow(ExceptionType.CLIENT_NOT_FOUND::exception);
 
-        validatorService.throwIfClientNameChangeNotAllowed(client.getFullName(), dto.getFullName());
+        validateOnClientUpdate(dto, client);
 
-        client.setBirthday(dto.getBirthday());
-        client.setFullName(dto.getFullName());
+        mapper.populateClientEntityByDto(client, dto);
 
         client = repository.save(client);
 
@@ -60,12 +60,24 @@ class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void softDelete(Long id) {
         Client client = repository.findById(id).orElseThrow(ExceptionType.CLIENT_NOT_FOUND::exception);
 
+        validateOnClientDelete(id, client);
+
+        client.setDeleted(true);
+
+        repository.save(client);
+    }
+
+    private void validateOnClientDelete(Long id, Client client) {
         validatorService.throwIfClientHasGivenBook(id);
+        validatorService.throwIfClientDeleted(client.isDeleted());
+    }
 
-        repository.delete(client);
+    private void validateOnClientUpdate(ClientDto dto, Client client) {
+        validatorService.throwIfClientNameChangeNotAllowed(client.getFullName(), dto.getFullName());
+        validatorService.throwIfClientDeleted(client.isDeleted());
     }
 
 }

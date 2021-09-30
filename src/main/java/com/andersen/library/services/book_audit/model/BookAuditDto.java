@@ -1,4 +1,4 @@
-package com.andersen.library.services.record_keeping;
+package com.andersen.library.services.book_audit.model;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @Data
-public class RecordKeepingDto {
+public class BookAuditDto {
 
     @Null
     private Long id;

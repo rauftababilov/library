@@ -1,7 +1,7 @@
 package com.andersen.library.services.book;
 
-import com.andersen.library.services.book.dto.BookDto;
-import com.andersen.library.services.book.dto.BookFilterDto;
+import com.andersen.library.services.book.model.BookDto;
+import com.andersen.library.services.book.model.BookFilterDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,8 +13,8 @@ public interface BookService {
 
     BookDto create(BookDto dto);
 
-    BookDto fullUpdate(Long id, BookDto dto);
+    BookDto update(Long id, BookDto dto);
 
-    void delete(Long id);
+    void softDelete(Long id);
 
 }
