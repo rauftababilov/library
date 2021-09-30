@@ -1,4 +1,4 @@
-package com.andersen.library.services.author.impl;
+package com.andersen.library.jpa.domain;
 
 
 import com.andersen.library.jpa.domain.base.FullAuditedEntity;
