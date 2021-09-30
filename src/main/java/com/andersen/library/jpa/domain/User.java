@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usr")
 @Data
 @EqualsAndHashCode(callSuper = true, of = "id")
 @ToString(of = "id", callSuper = true)
@@ -21,7 +21,7 @@ public class User extends DateAuditedEntity {
     @SequenceGenerator(name = "user_generator", sequenceName = "seq_user", allocationSize = 1)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
