@@ -10,4 +10,8 @@ public interface BookValidatorService {
 
     void throwIfPublishYearIncorrect(Integer publishYear);
 
+    void throwIfBookGiven(Long bookId);
+
+    void throwIfBookDeleted(boolean deleted);
+
 }

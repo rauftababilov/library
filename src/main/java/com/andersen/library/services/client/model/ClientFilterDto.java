@@ -1,4 +1,4 @@
-package com.andersen.library.services.client;
+package com.andersen.library.services.client.model;
 
 import lombok.Data;
 

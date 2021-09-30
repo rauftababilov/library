@@ -1,6 +1,6 @@
 package com.andersen.library.security;
 
-import com.andersen.library.services.user.dto.UserDto;
+import com.andersen.library.services.user.model.UserDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;

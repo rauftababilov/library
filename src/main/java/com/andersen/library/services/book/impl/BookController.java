@@ -1,9 +1,9 @@
 package com.andersen.library.services.book.impl;
 
-import com.andersen.library.services.book.dto.BookDto;
-import com.andersen.library.services.book.dto.BookFilterDto;
 import com.andersen.library.services.book.BookService;
 import com.andersen.library.services.book.BookUrl;
+import com.andersen.library.services.book.model.BookDto;
+import com.andersen.library.services.book.model.BookFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,12 +34,12 @@ class BookController {
 
     @PutMapping(BookUrl.UPDATE)
     public BookDto update(@PathVariable Long bookId, @Valid @RequestBody BookDto dto) {
-        return bookService.fullUpdate(bookId, dto);
+        return bookService.update(bookId, dto);
     }
 
     @DeleteMapping(BookUrl.DELETE)
     public void delete(@PathVariable Long bookId) {
-        bookService.delete(bookId);
+        bookService.softDelete(bookId);
     }
 
 }

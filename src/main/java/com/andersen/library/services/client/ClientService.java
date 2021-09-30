@@ -1,5 +1,7 @@
 package com.andersen.library.services.client;
 
+import com.andersen.library.services.client.model.ClientDto;
+import com.andersen.library.services.client.model.ClientFilterDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,8 +13,8 @@ public interface ClientService {
 
     ClientDto create(ClientDto dto);
 
-    ClientDto fullUpdate(Long id, ClientDto dto);
+    ClientDto update(Long id, ClientDto dto);
 
-    void delete(Long id);
+    void softDelete(Long id);
 
 }

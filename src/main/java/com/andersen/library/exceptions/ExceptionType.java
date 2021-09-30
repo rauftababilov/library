@@ -14,17 +14,21 @@ public enum ExceptionType {
     ACCESS_DENIED("Insufficient privileges", HttpStatus.FORBIDDEN),
 
     BOOK_NOT_FOUND("Book was not found", HttpStatus.NOT_FOUND),
+    BOOK_DELETED("Book deleted", HttpStatus.CONFLICT),
     BOOK_PUBLISH_YEAR_INCORRECT("Publish year incorrect", HttpStatus.BAD_REQUEST),
 
     CLIENT_NOT_FOUND("Client was not found", HttpStatus.NOT_FOUND),
+    CLIENT_DELETED("Client deleted", HttpStatus.CONFLICT),
     CLIENT_ALREADY_EXISTS("Client already exists", HttpStatus.CONFLICT),
     CLIENT_HAS_GIVEN_BOOK("Client has book on hands", HttpStatus.FORBIDDEN),
 
-    AUTHOR_NOT_FOUND("This author was not found", HttpStatus.NOT_FOUND),
+    AUTHOR_NOT_FOUND("Author was not found", HttpStatus.NOT_FOUND),
+    AUTHOR_DELETED("Author deleted", HttpStatus.CONFLICT),
+
     AUDIT_RECORD_NOT_FOUND("Audit record was not found", HttpStatus.NOT_FOUND),
     BOOK_GIVEN("Current book is already given", HttpStatus.CONFLICT),
     BOOK_IN_AUDIT_CHANGING("Book in audit record cannot be changed", HttpStatus.CONFLICT),
-    RECIEVED_BOOK_AUDIT_RECORD_CHANGING("Audit record about already recieved book a=cannot be changed",
+    RECEIVED_BOOK_AUDIT_RECORD_CHANGING("Audit record about already received book cannot be changed",
             HttpStatus.CONFLICT),
 
     USER_NOT_FOUND("User not found", HttpStatus.NOT_FOUND),

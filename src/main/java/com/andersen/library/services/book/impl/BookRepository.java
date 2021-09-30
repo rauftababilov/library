@@ -10,9 +10,10 @@ import java.util.Set;
 interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("select b from Book b inner join b.authorIds a" +
-            " where (:publishingHouseId is null or b.publishingHouseId in (:publishingHouseId))" +
+            " where b.deleted = false " +
+            " and (:publishingHouseId is null or b.publishingHouseId in (:publishingHouseId))" +
             " and (:authorId is null or a in (:authorId))" +
             " order by b.createdAt desc")
-    Page<Book> findAllWithFilter(Set<Long> authorId, Set<Long> publishingHouseId, Pageable pageable);
+    Page<Book> findAllByFilter(Set<Long> authorId, Set<Long> publishingHouseId, Pageable pageable);
 
 }

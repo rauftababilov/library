@@ -1,6 +1,6 @@
 package com.andersen.library.services.client.impl;
 
-import com.andersen.library.jpa.domain.base.FullAuditedEntity;
+import com.andersen.library.jpa.FullAuditedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Client extends FullAuditedEntity {
+class Client extends FullAuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_generator")
@@ -25,5 +25,8 @@ public class Client extends FullAuditedEntity {
 
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
+
+    @Column(name = "deleted")
+    private boolean deleted;
 
 }

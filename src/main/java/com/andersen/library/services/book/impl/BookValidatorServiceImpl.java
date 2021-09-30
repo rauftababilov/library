@@ -1,10 +1,11 @@
 package com.andersen.library.services.book.impl;
 
 import com.andersen.library.exceptions.ExceptionType;
+import com.andersen.library.services.author.AuthorService;
 import com.andersen.library.services.book.BookValidatorService;
-import com.andersen.library.services.record_keeping.BookState;
-import com.andersen.library.services.record_keeping.RecordKeepingFilterDto;
-import com.andersen.library.services.record_keeping.RecordKeepingService;
+import com.andersen.library.services.book_audit.BookAuditService;
+import com.andersen.library.services.book_audit.model.BookAuditFilterDto;
+import com.andersen.library.services.book_audit.model.BookState;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,14 @@ import java.util.List;
 @RequiredArgsConstructor
 class BookValidatorServiceImpl implements BookValidatorService {
 
+    private final AuthorService authorService;
+
     @Setter(onMethod_ = {@Autowired, @Lazy})
-    private RecordKeepingService recordKeepingService;
+    private BookAuditService bookAuditService;
 
     @Override
     public void throwIfAuthorsIncorrect(List<Long> authorIds) {
-        //TODO
+        authorIds.forEach(authorService::get);
     }
 
     @Override
@@ -39,14 +42,22 @@ class BookValidatorServiceImpl implements BookValidatorService {
         }
     }
 
+    @Override
     public void throwIfBookGiven(Long bookId) {
-        RecordKeepingFilterDto filterDto = RecordKeepingFilterDto.builder()
+        BookAuditFilterDto filterDto = BookAuditFilterDto.builder()
                 .bookState(BookState.GIVEN)
                 .bookId(bookId)
                 .build();
 
-        if (recordKeepingService.getAll(filterDto, Pageable.unpaged()).getSize() != 0) {
+        if (bookAuditService.getAll(filterDto, Pageable.unpaged()).getSize() != 0) {
             throw ExceptionType.BOOK_GIVEN.exception();
+        }
+    }
+
+    @Override
+    public void throwIfBookDeleted(boolean deleted) {
+        if (deleted) {
+            throw ExceptionType.BOOK_DELETED.exception();
         }
     }
 
