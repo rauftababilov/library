@@ -18,7 +18,8 @@ public enum ExceptionType {
 
     USER_NOT_FOUND("User not found", HttpStatus.NOT_FOUND),
     USER_DELETED("User deleted", HttpStatus.CONFLICT),
-    USER_ALREADY_EXISTS("User already exists", HttpStatus.CONFLICT);
+    USER_ALREADY_EXISTS("User already exists", HttpStatus.CONFLICT),
+    ROOT_USER_DELETE("Root user cannot be deleted", HttpStatus.FORBIDDEN);
 
     @JsonValue
     private final String message;

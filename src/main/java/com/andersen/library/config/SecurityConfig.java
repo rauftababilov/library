@@ -1,5 +1,7 @@
 package com.andersen.library.config;
 
+import com.andersen.library.security.PredefinedRole;
+import com.andersen.library.services.user.UserUrl;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST, UserUrl.CREATE).hasRole(PredefinedRole.ROOT.name())
+                .antMatchers(HttpMethod.DELETE, UserUrl.DELETE).hasRole(PredefinedRole.ROOT.name())
                 .anyRequest().authenticated()
                 .and().httpBasic();
     }

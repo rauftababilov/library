@@ -1,6 +1,5 @@
 create sequence seq_book increment 10;
 create sequence seq_user;
-create sequence seq_role;
 create sequence seq_author increment 10;
 create sequence seq_publishing_house increment 10;
 

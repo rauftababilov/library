@@ -1,12 +1,13 @@
 package com.andersen.library.services.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class UserDto {
@@ -20,9 +21,10 @@ public class UserDto {
     @NotBlank
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank
     private String password;
 
-    private List<RoleDto> roles = new ArrayList<>();
+    private Set<String> roles = new HashSet<>();
 
 }

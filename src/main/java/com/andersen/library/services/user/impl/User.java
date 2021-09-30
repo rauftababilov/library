@@ -31,7 +31,7 @@ class User extends DateAuditedEntity {
     @Column(name = "deleted")
     private boolean deleted;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},

@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 @Data
 public class UserDetailsImpl implements UserDetails {
 
+    private static final String ROLE_PREFIX = "ROLE_";
+
     private final UserDto userDto;
 
     private Collection<SimpleGrantedAuthority> authorities;
@@ -19,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
         this.userDto = userDto;
         this.authorities = userDto.getRoles()
                 .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role))
                 .collect(Collectors.toList());
     }
 

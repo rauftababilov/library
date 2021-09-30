@@ -1,5 +1,6 @@
 package com.andersen.library.services.user.impl;
 
+import com.andersen.library.security.PredefinedRole;
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
 
@@ -12,12 +13,11 @@ import javax.persistence.*;
 class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_generator")
-    @SequenceGenerator(name = "role_generator", sequenceName = "seq_role", allocationSize = 1)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name", nullable = false)
-    private String name;
+    private PredefinedRole name;
 
 }
 
