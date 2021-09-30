@@ -21,6 +21,7 @@ public enum ExceptionType {
     CLIENT_HAS_GIVEN_BOOK("Client has book on hands", HttpStatus.FORBIDDEN),
 
     AUTHOR_NOT_FOUND("This author was not found", HttpStatus.NOT_FOUND),
+    PUBLISHING_HOUSE_NOT_FOUND("This publishing house was not found", HttpStatus.NOT_FOUND),
     AUDIT_RECORD_NOT_FOUND("Audit record was not found", HttpStatus.NOT_FOUND),
     BOOK_GIVEN("Current book is already given", HttpStatus.CONFLICT),
     BOOK_IN_AUDIT_CHANGING("Book in audit record cannot be changed", HttpStatus.CONFLICT),

@@ -1,5 +1,6 @@
-package com.andersen.library.services.author;
+package com.andersen.library.services.publishing_house;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -9,15 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-public class AuthorDto {
+@Builder
+public class PublishingHouseDto {
 
     @Null
     private Long id;
 
     @NotBlank
-    private String fullName;
-
-    @NotEmpty
-    private List<Long> bookIds = new LinkedList<>();
-
+    private String title;
 }
