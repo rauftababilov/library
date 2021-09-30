@@ -1,10 +1,9 @@
 package com.andersen.library.services.record_keeping.impl;
 
 import com.andersen.library.jpa.domain.base.FullAuditedEntity;
-import com.andersen.library.jpa.domain.enums.BookState;
-import com.andersen.library.services.book.impl.Book;
-import com.andersen.library.services.client.impl.Client;
-import lombok.*;
+import com.andersen.library.services.record_keeping.BookState;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "record_keeping")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RecordKeeping extends FullAuditedEntity {
+class RecordKeeping extends FullAuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record_keeping_generator")

@@ -63,6 +63,8 @@ class ClientServiceImpl implements ClientService {
     public void delete(Long id) {
         Client client = repository.findById(id).orElseThrow(ExceptionType.CLIENT_NOT_FOUND::exception);
 
+        validatorService.throwIfClientHasGivenBook(id);
+
         repository.delete(client);
     }
 

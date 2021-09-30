@@ -73,6 +73,8 @@ class BookServiceImpl implements BookService {
     public void delete(Long id) {
         Book book = repository.findById(id).orElseThrow(ExceptionType.BOOK_NOT_FOUND::exception);
 
+        validatorService.throwIfBookGiven(id);
+
         repository.delete(book);
     }
 
