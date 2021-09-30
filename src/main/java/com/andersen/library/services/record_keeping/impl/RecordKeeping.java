@@ -13,23 +13,20 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "record_keeping")
 public class RecordKeeping extends FullAuditedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record_keeping_generator")
-    @SequenceGenerator(name = "record_keeping_generator", sequenceName = "seq_record_keeping", allocationSize = 1)
+    @SequenceGenerator(name = "record_keeping_generator", sequenceName = "seq_record_keeping", allocationSize = 20)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @JoinColumn(name = "book_id", nullable = false)
+    private Long bookId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @Column(name = "client_id", nullable = false)
+    private Long clientId;
 
-    @Column(name = "status")
+    @Column(name = "book_state")
     @Enumerated(value = EnumType.STRING)
     private BookState bookState;
 }

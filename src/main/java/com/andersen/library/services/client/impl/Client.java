@@ -7,18 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-    @Entity
-    @Table(name = "client")
-    @Getter
-    @Setter
-    @EqualsAndHashCode(callSuper = true)
-    public class Client extends FullAuditedEntity {
+@Entity
+@Table(name = "client")
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+public class Client extends FullAuditedEntity {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_generator")
-        @SequenceGenerator(name = "client_generator", sequenceName = "seq_client", allocationSize = 1)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_generator")
+    @SequenceGenerator(name = "client_generator", sequenceName = "seq_client", allocationSize = 10)
+    private Long id;
 
-        @Column(name = "full_name", nullable = false)
-        private String fullName;
-    }
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+}

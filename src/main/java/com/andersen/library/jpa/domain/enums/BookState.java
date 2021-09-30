@@ -1,16 +1,9 @@
 package com.andersen.library.jpa.domain.enums;
 
-import lombok.AllArgsConstructor;
-
 /**
- * Статус нахождения книги
+ * State of book location
  */
-@AllArgsConstructor
 public enum BookState {
-
-    RECIEVED ("RECIEVED"), // возвращена/поступила в библиотеку
-    GIVEN ("GIVEN"); // выдана клиенту
-
-    private String name;
-
+    RECIEVED, // возвращена/поступила в библиотеку
+    GIVEN; // выдана клиенту
 }

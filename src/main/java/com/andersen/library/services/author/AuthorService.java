@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AuthorService{
     /**
-     * Добавление автора в БД
+     * Add author to DB
      *
      * @param author author
      * @return author
@@ -14,14 +14,14 @@ public interface AuthorService{
     Author save(Author author);
 
     /**
-     * Поиск всех авторов в БД
+     * Find all authors
      *
-     * @return list of persons
+     * @return list of authors
      */
     List<Author> findAll();
 
     /**
-     * Поиск автора по id
+     * Find author by id
      *
      * @param id id author
      * @return author

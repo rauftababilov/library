@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class PublishingHouseServiceImpl implements PublishingHouseService {
     @Autowired
     private PublishingHouseRepository publishingHouseRepository;

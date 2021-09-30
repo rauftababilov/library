@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
