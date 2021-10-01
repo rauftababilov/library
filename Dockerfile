@@ -11,7 +11,7 @@ RUN mvn clean package -DskipTests
 FROM openjdk:8-jre-alpine3.9
 
 # copy only the artifacts we need from the first stage and discard the rest
-COPY --from=MAVEN_BUILD /target/library-1.0.0-SNAPSHOT.jar /library.jar
+COPY --from=MAVEN_BUILD /target/*.jar /library.jar
 
 # set the startup command to execute the jar
 CMD ["java", "-jar", "/library.jar"]
