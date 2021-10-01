@@ -54,6 +54,8 @@ class AuthorServiceImpl implements AuthorService {
     public AuthorDto create(AuthorDto authorDto) {
         Author author = new Author();
 
+        validatorService.throwIfAuthorAlreadyExists(authorDto.getFullName());
+
         author.setFullName(authorDto.getFullName());
 
         author = repository.save(author);
@@ -66,7 +68,7 @@ class AuthorServiceImpl implements AuthorService {
     public AuthorDto update(Long id, AuthorDto authorDto) {
         Author author = repository.findById(id).orElseThrow(ExceptionType.AUTHOR_NOT_FOUND::exception);
 
-        validatorService.throwIfAuthorDeleted(author.isDeleted());
+        validateAuthorOnUpdate(authorDto, author);
 
         author.setFullName(authorDto.getFullName());
 
@@ -85,6 +87,11 @@ class AuthorServiceImpl implements AuthorService {
         author.setDeleted(true);
 
         repository.save(author);
+    }
+
+    private void validateAuthorOnUpdate(AuthorDto authorDto, Author author) {
+        validatorService.throwIfAuthorDeleted(author.isDeleted());
+        validatorService.throwIfAuthorNameChangeNotAllowed(author.getFullName(), authorDto.getFullName());
     }
 
 }

@@ -10,7 +10,7 @@
 7. User update is prohibited.
 8. All entities, except for audit records, have soft delete logic. They cannot be deleted completely, they can only be marked as deleted.
 9. The client's name must be unique.
-10. The name of the author may not be unique.
+10. The author's name must be unique.
 
 ## Initial data
 

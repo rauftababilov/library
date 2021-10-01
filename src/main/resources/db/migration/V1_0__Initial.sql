@@ -77,7 +77,8 @@ create table author
         constraint author_user_update_fk references "user",
     updated_at timestamp not null default current_timestamp,
     full_name  text      not null,
-    deleted    boolean   not null default false
+    deleted    boolean   not null default false,
+    unique (full_name)
 );
 
 create table book_author

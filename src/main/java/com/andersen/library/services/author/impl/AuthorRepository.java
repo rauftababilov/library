@@ -13,4 +13,6 @@ interface AuthorRepository extends JpaRepository<Author, Long> {
 
     List<Author> findAllByIdIn(Collection<Long> id);
 
+    boolean existsByFullNameAndDeletedIsFalse(String name);
+
 }

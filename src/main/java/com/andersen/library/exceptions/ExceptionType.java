@@ -24,6 +24,7 @@ public enum ExceptionType {
 
     AUTHOR_NOT_FOUND("Author was not found", HttpStatus.NOT_FOUND),
     AUTHOR_DELETED("Author deleted", HttpStatus.CONFLICT),
+    AUTHOR_ALREADY_EXISTS("Author already exists", HttpStatus.CONFLICT),
 
     PUBLISHING_HOUSE_NOT_FOUND("Publishing house was not found", HttpStatus.NOT_FOUND),
     PUBLISHING_HOUSE_ALREADY_EXISTS("Publishing house already exists", HttpStatus.CONFLICT),
