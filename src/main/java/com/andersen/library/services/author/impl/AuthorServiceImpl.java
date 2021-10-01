@@ -1,10 +1,13 @@
 package com.andersen.library.services.author.impl;
 
+import com.andersen.library.config.CacheConfig;
 import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.services.author.AuthorService;
 import com.andersen.library.services.author.AuthorValidatorService;
 import com.andersen.library.services.author.model.AuthorDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,7 @@ class AuthorServiceImpl implements AuthorService {
         return repository.findAllByIdIn(ids).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
+    @Cacheable(value = CacheConfig.AUTHOR_BY_ID_CACHE, key = "#id", condition = "#allowDeleted == true")
     @Override
     public AuthorDto get(Long id, boolean allowDeleted) {
         AuthorDto authorDto = repository.findById(id)
@@ -57,6 +61,7 @@ class AuthorServiceImpl implements AuthorService {
         return mapper.toDto(author);
     }
 
+    @CacheEvict(value = CacheConfig.AUTHOR_BY_ID_CACHE, key = "#id")
     @Override
     public AuthorDto update(Long id, AuthorDto authorDto) {
         Author author = repository.findById(id).orElseThrow(ExceptionType.AUTHOR_NOT_FOUND::exception);
@@ -70,6 +75,7 @@ class AuthorServiceImpl implements AuthorService {
         return mapper.toDto(author);
     }
 
+    @CacheEvict(value = CacheConfig.AUTHOR_BY_ID_CACHE, key = "#id")
     @Override
     public void softDelete(Long id) {
         Author author = repository.findById(id).orElseThrow(ExceptionType.AUTHOR_NOT_FOUND::exception);

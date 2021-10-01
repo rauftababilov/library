@@ -1,10 +1,13 @@
 package com.andersen.library.services.publishing_house.impl;
 
+import com.andersen.library.config.CacheConfig;
 import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.services.publishing_house.PublishingHouseService;
 import com.andersen.library.services.publishing_house.PublishingHouseValidatorService;
 import com.andersen.library.services.publishing_house.model.PublishingHouseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ class PublishingHouseServiceImpl implements PublishingHouseService {
         return repository.findAllByDeletedIsFalse(pageable).map(mapper::toDto);
     }
 
+    @Cacheable(value = CacheConfig.PUBLISHING_HOUSE_BY_ID_CACHE, key = "#id", condition = "#allowDeleted == true")
     @Override
     public PublishingHouseDto get(Long id, boolean allowDeleted) {
         PublishingHouseDto publishingHouse = repository.findById(id)
@@ -50,6 +54,7 @@ class PublishingHouseServiceImpl implements PublishingHouseService {
         return mapper.toDto(publishingHouse);
     }
 
+    @CacheEvict(value = CacheConfig.PUBLISHING_HOUSE_BY_ID_CACHE, key = "#id")
     @Override
     public PublishingHouseDto update(Long id, PublishingHouseDto dto) {
         PublishingHouse publishingHouse = repository.findById(id).orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
@@ -63,6 +68,7 @@ class PublishingHouseServiceImpl implements PublishingHouseService {
         return mapper.toDto(publishingHouse);
     }
 
+    @CacheEvict(value = CacheConfig.PUBLISHING_HOUSE_BY_ID_CACHE, key = "#id")
     @Override
     public void softDelete(Long id) {
         PublishingHouse publishingHouse = repository.findById(id).orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);

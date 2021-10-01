@@ -1,11 +1,14 @@
 package com.andersen.library.services.client.impl;
 
+import com.andersen.library.config.CacheConfig;
 import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.services.client.ClientService;
 import com.andersen.library.services.client.ClientValidatorService;
 import com.andersen.library.services.client.model.ClientDto;
 import com.andersen.library.services.client.model.ClientFilterDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ class ClientServiceImpl implements ClientService {
                 .map(mapper::toDto);
     }
 
+    @Cacheable(value = CacheConfig.CLIENT_BY_ID_CACHE, key = "#id", condition = "#allowDeleted == true")
     @Override
     public ClientDto get(Long id, boolean allowDeleted) {
         ClientDto clientDto = repository.findById(id)
@@ -52,6 +56,7 @@ class ClientServiceImpl implements ClientService {
         return mapper.toDto(client);
     }
 
+    @CacheEvict(value = CacheConfig.CLIENT_BY_ID_CACHE, key = "#id")
     @Override
     public ClientDto update(Long id, ClientDto dto) {
         Client client = repository.findById(id).orElseThrow(ExceptionType.CLIENT_NOT_FOUND::exception);
@@ -65,6 +70,7 @@ class ClientServiceImpl implements ClientService {
         return mapper.toDto(client);
     }
 
+    @CacheEvict(value = CacheConfig.CLIENT_BY_ID_CACHE, key = "#id")
     @Override
     public void softDelete(Long id) {
         Client client = repository.findById(id).orElseThrow(ExceptionType.CLIENT_NOT_FOUND::exception);

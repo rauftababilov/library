@@ -1,11 +1,14 @@
 package com.andersen.library.services.user.impl;
 
+import com.andersen.library.config.CacheConfig;
 import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.security.PredefinedRole;
 import com.andersen.library.services.user.UserService;
 import com.andersen.library.services.user.UserValidatorService;
 import com.andersen.library.services.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,7 @@ class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Cacheable(value = CacheConfig.USER_BY_ID_AND_NAME_CACHE, key = "#id", condition = "#allowDeleted == true")
     @Override
     public UserDto getById(Long id, boolean allowDeleted) {
         UserDto userDto = repository.findById(id)
@@ -34,6 +38,7 @@ class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    @Cacheable(value = CacheConfig.USER_BY_ID_AND_NAME_CACHE, key = "#username", condition = "#allowDeleted == false")
     @Override
     public UserDto getByUsername(String username, boolean allowDeleted) {
         UserDto userDto = repository.findByUsername(username)
@@ -66,6 +71,7 @@ class UserServiceImpl implements UserService {
         return mapper.toDto(user);
     }
 
+    @CacheEvict(value = CacheConfig.USER_BY_ID_AND_NAME_CACHE, key = "#id")
     @Override
     public void softDelete(Long id) {
         User user = repository.findById(id).orElseThrow(ExceptionType.USER_NOT_FOUND::exception);

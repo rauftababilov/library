@@ -1,11 +1,14 @@
 package com.andersen.library.services.book.impl;
 
+import com.andersen.library.config.CacheConfig;
 import com.andersen.library.exceptions.ExceptionType;
 import com.andersen.library.services.book.BookService;
 import com.andersen.library.services.book.BookValidatorService;
 import com.andersen.library.services.book.model.BookDto;
 import com.andersen.library.services.book.model.BookFilterDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ class BookServiceImpl implements BookService {
                 .map(mapper::toDto);
     }
 
+    @Cacheable(value = CacheConfig.BOOK_BY_ID_CACHE, key = "#id", condition = "#allowDeleted == true")
     @Override
     public BookDto get(Long id, boolean allowDeleted) {
         BookDto bookDto = repository.findById(id)
@@ -52,6 +56,7 @@ class BookServiceImpl implements BookService {
         return mapper.toDto(book);
     }
 
+    @CacheEvict(value = CacheConfig.BOOK_BY_ID_CACHE, key = "#id")
     @Override
     public BookDto update(Long id, BookDto dto) {
         Book book = repository.findById(id).orElseThrow(ExceptionType.BOOK_NOT_FOUND::exception);
@@ -65,6 +70,7 @@ class BookServiceImpl implements BookService {
         return mapper.toDto(book);
     }
 
+    @CacheEvict(value = CacheConfig.BOOK_BY_ID_CACHE, key = "#id")
     @Override
     public void softDelete(Long id) {
         Book book = repository.findById(id).orElseThrow(ExceptionType.BOOK_NOT_FOUND::exception);
