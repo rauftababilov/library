@@ -1,8 +1,8 @@
 package com.andersen.library.services.author.impl;
 
-import com.andersen.library.services.author.model.AuthorDto;
 import com.andersen.library.services.author.AuthorService;
 import com.andersen.library.services.author.AuthorUrl;
+import com.andersen.library.services.author.model.AuthorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ class AuthorController {
 
     @GetMapping(AuthorUrl.GET)
     public AuthorDto get(@PathVariable Long authorId) {
-        return authorService.get(authorId);
+        return authorService.get(authorId, true);
     }
 
     @GetMapping(AuthorUrl.FIND)

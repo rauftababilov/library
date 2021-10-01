@@ -27,10 +27,16 @@ class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto get(Long id) {
-        return repository.findById(id)
+    public BookDto get(Long id, boolean allowDeleted) {
+        BookDto bookDto = repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(ExceptionType.BOOK_NOT_FOUND::exception);
+
+        if (!allowDeleted && bookDto.isDeleted()) {
+            throw ExceptionType.BOOK_DELETED.exception();
+        }
+
+        return bookDto;
     }
 
     @Override

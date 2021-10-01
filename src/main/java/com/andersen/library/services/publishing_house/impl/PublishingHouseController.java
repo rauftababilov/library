@@ -23,7 +23,7 @@ class PublishingHouseController {
 
     @GetMapping(PublishingHouseUrl.GET)
     public PublishingHouseDto get(@PathVariable Long publishingHouseId) {
-        return publishingHouseService.get(publishingHouseId);
+        return publishingHouseService.get(publishingHouseId, true);
     }
 
     @PostMapping(PublishingHouseUrl.CREATE)

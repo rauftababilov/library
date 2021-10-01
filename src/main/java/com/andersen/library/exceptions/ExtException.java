@@ -1,11 +1,14 @@
 package com.andersen.library.exceptions;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Singular;
 
 import java.util.Map;
 
 @Data
-@Builder(builderMethodName = "innerBuilder", access = AccessLevel.PACKAGE)
+@Builder(builderMethodName = "innerBuilder")
 @EqualsAndHashCode(callSuper = false)
 public class ExtException extends RuntimeException {
 
@@ -20,6 +23,7 @@ public class ExtException extends RuntimeException {
         return innerBuilder().type(type);
     }
 
+    @Override
     public String getMessage() {
         if (message == null) {
             return type.getMessage();

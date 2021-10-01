@@ -11,7 +11,7 @@ public interface BookAuditService {
      * Find all bookAudits
      *
      * @param filterDto bookAuditFilterDto
-     * @param pageable pageable
+     * @param pageable  pageable
      * @return list of bookAuditDtos
      */
     Page<BookAuditDto> getAll(BookAuditFilterDto filterDto, Pageable pageable);
@@ -35,7 +35,7 @@ public interface BookAuditService {
     /**
      * Update bookAudit in DB
      *
-     * @param id id bookAudit
+     * @param id  id bookAudit
      * @param dto bookAuditDto
      * @return updated bookAuditDto
      */

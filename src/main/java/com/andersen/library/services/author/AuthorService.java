@@ -4,6 +4,9 @@ import com.andersen.library.services.author.model.AuthorDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface AuthorService {
 
     /**
@@ -15,12 +18,21 @@ public interface AuthorService {
     Page<AuthorDto> getAll(Pageable pageable);
 
     /**
+     * Find all authors
+     *
+     * @param ids id of authors
+     * @return list of authorDtos
+     */
+    List<AuthorDto> getAllById(Collection<Long> ids);
+
+    /**
      * Find author by id
      *
-     * @param id id author
+     * @param id           id author
+     * @param allowDeleted allow deleted flag
      * @return authorDto
      */
-    AuthorDto get(Long id);
+    AuthorDto get(Long id, boolean allowDeleted);
 
     /**
      * Add author to DB

@@ -11,7 +11,7 @@ public interface ClientService {
      * Find all clients
      *
      * @param filterDto clientFilterDto
-     * @param pageable pageable
+     * @param pageable  pageable
      * @return list of clientDtos
      */
     Page<ClientDto> getAll(ClientFilterDto filterDto, Pageable pageable);
@@ -19,10 +19,11 @@ public interface ClientService {
     /**
      * Find client by id
      *
-     * @param id id client
+     * @param id           id client
+     * @param allowDeleted allow deleted flag
      * @return clientDto
      */
-    ClientDto get(Long id);
+    ClientDto get(Long id, boolean allowDeleted);
 
     /**
      * Add client to DB
@@ -35,7 +36,7 @@ public interface ClientService {
     /**
      * Update client in DB
      *
-     * @param id id client
+     * @param id  id client
      * @param dto clientDto
      * @return updated clientDto
      */

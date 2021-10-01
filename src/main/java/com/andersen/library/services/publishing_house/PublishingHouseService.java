@@ -17,10 +17,11 @@ public interface PublishingHouseService {
     /**
      * Find publishingHouse by id
      *
-     * @param id id publishingHouse
+     * @param id           id publishingHouse
+     * @param allowDeleted allow deleted flag
      * @return publishingHouseDto
      */
-    PublishingHouseDto get(Long id);
+    PublishingHouseDto get(Long id, boolean allowDeleted);
 
     /**
      * Add publishingHouse to DB

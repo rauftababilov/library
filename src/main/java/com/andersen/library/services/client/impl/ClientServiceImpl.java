@@ -27,10 +27,16 @@ class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto get(Long id) {
-        return repository.findById(id)
+    public ClientDto get(Long id, boolean allowDeleted) {
+        ClientDto clientDto = repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(ExceptionType.CLIENT_NOT_FOUND::exception);
+
+        if (!allowDeleted && clientDto.isDeleted()) {
+            throw ExceptionType.CLIENT_DELETED.exception();
+        }
+
+        return clientDto;
     }
 
     @Override

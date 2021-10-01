@@ -11,7 +11,7 @@ public interface BookService {
      * Find all books
      *
      * @param filterDto bookFilterDto
-     * @param pageable pageable
+     * @param pageable  pageable
      * @return list of bookDtos
      */
     Page<BookDto> getAll(BookFilterDto filterDto, Pageable pageable);
@@ -19,10 +19,11 @@ public interface BookService {
     /**
      * Find book by id
      *
-     * @param id id book
+     * @param id           id book
+     * @param allowDeleted allow deleted flag
      * @return bookDto
      */
-    BookDto get(Long id);
+    BookDto get(Long id, boolean allowDeleted);
 
     /**
      * Add book to DB
@@ -35,7 +36,7 @@ public interface BookService {
     /**
      * Update book in DB
      *
-     * @param id id book
+     * @param id  id book
      * @param dto bookDto
      * @return updated bookDto
      */

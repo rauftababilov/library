@@ -20,6 +20,24 @@ class PublishingHouseServiceImpl implements PublishingHouseService {
     private final PublishingHouseValidatorService validatorService;
 
     @Override
+    public Page<PublishingHouseDto> getAll(Pageable pageable) {
+        return repository.findAllByDeletedIsFalse(pageable).map(mapper::toDto);
+    }
+
+    @Override
+    public PublishingHouseDto get(Long id, boolean allowDeleted) {
+        PublishingHouseDto publishingHouse = repository.findById(id)
+                .map(mapper::toDto)
+                .orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
+
+        if (!allowDeleted && publishingHouse.isDeleted()) {
+            throw ExceptionType.PUBLISHING_HOUSE_DELETED.exception();
+        }
+
+        return publishingHouse;
+    }
+
+    @Override
     public PublishingHouseDto create(PublishingHouseDto dto) {
         PublishingHouse publishingHouse = new PublishingHouse();
 
@@ -30,18 +48,6 @@ class PublishingHouseServiceImpl implements PublishingHouseService {
         publishingHouse = repository.save(publishingHouse);
 
         return mapper.toDto(publishingHouse);
-    }
-
-    @Override
-    public Page<PublishingHouseDto> getAll(Pageable pageable) {
-        return repository.findAllByDeletedIsFalse(pageable).map(mapper::toDto);
-    }
-
-    @Override
-    public PublishingHouseDto get(Long id) {
-        return repository.findById(id)
-                .map(mapper::toDto)
-                .orElseThrow(ExceptionType.PUBLISHING_HOUSE_NOT_FOUND::exception);
     }
 
     @Override

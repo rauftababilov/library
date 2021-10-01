@@ -30,12 +30,12 @@ class BookValidatorServiceImpl implements BookValidatorService {
 
     @Override
     public void throwIfAuthorsIncorrect(List<Long> authorIds) {
-        authorIds.forEach(authorService::get);
+        authorIds.forEach(authorId -> authorService.get(authorId, false));
     }
 
     @Override
     public void throwIfPublishingHouseIncorrect(Long publishingHouseId) {
-        publishingHouseService.get(publishingHouseId);
+        publishingHouseService.get(publishingHouseId, false);
     }
 
     @Override

@@ -19,7 +19,7 @@ class BookController {
 
     @GetMapping(BookUrl.GET)
     public BookDto get(@PathVariable Long bookId) {
-        return bookService.get(bookId);
+        return bookService.get(bookId, true);
     }
 
     @GetMapping(BookUrl.FIND)

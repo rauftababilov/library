@@ -1,9 +1,9 @@
 package com.andersen.library.services.client.impl;
 
-import com.andersen.library.services.client.model.ClientDto;
-import com.andersen.library.services.client.model.ClientFilterDto;
 import com.andersen.library.services.client.ClientService;
 import com.andersen.library.services.client.ClientUrl;
+import com.andersen.library.services.client.model.ClientDto;
+import com.andersen.library.services.client.model.ClientFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ class ClientController {
 
     @GetMapping(ClientUrl.GET)
     public ClientDto get(@PathVariable Long clientId) {
-        return clientService.get(clientId);
+        return clientService.get(clientId, true);
     }
 
     @GetMapping(ClientUrl.FIND)

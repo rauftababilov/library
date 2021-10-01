@@ -7,7 +7,7 @@ public interface UserService {
     /**
      * Find user by id
      *
-     * @param id id user
+     * @param id           id user
      * @param allowDeleted delete flag
      * @return userDto
      */
@@ -16,7 +16,7 @@ public interface UserService {
     /**
      * Find user by username
      *
-     * @param username username
+     * @param username     username
      * @param allowDeleted delete flag
      * @return userDto
      */

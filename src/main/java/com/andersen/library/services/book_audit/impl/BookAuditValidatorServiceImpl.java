@@ -25,12 +25,12 @@ class BookAuditValidatorServiceImpl implements BookAuditValidatorService {
 
     @Override
     public void throwIfClientNotAllowed(Long clientId) {
-        clientService.get(clientId);
+        clientService.get(clientId, false);
     }
 
     @Override
     public void throwIfBookTakingNotAllowed(Long bookId) {
-        bookService.get(bookId);
+        bookService.get(bookId, false);
 
         if (repository.existsByBookStateAndBookId(BookState.GIVEN, bookId)) {
             throw ExceptionType.BOOK_GIVEN.exception();
