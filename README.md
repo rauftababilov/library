@@ -17,3 +17,10 @@
 ROOT user:
 * username: admin 
 * password: admin
+
+## Instructions
+
+To run the application, execute the command:
+ ```
+  docker-compose up
+ ```
