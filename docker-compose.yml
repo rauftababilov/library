@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  app:
-    image: 'library:latest'
+  library-be:
+    image: 'library-be'
     build:
-      context: .
+      context: ./be
       dockerfile: Dockerfile
-    container_name: library-app
+    container_name: library-be-app
     ports:
       - "5000:8080"
     depends_on:

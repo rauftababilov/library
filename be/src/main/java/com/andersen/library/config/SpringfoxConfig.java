@@ -27,7 +27,7 @@ public class SpringfoxConfig {
     }
 
     @Data
-    public static class SwaggerPageable {
+    private static class SwaggerPageable {
 
         @ApiModelProperty(value = "Number of records per page", example = "20")
         private int size;
