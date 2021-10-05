@@ -18,9 +18,13 @@ ROOT user:
 * username: admin 
 * password: admin
 
+Auth flow was not completely finished and because of this, the user's credentials are now static and can be changed in the file "fe/src/api/http-client.js"
+
 ## Instructions
 
 To run the application, execute the command:
  ```
   docker-compose up
  ```
+
+Then open page - http://localhost/
