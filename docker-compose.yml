@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     container_name: library-be-app
     ports:
-      - "8080:8080"
+      - "5000:8080"
     depends_on:
       - library-db
     environment:
@@ -22,8 +22,7 @@ services:
       context: ./fe
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: http://library-be:8080
-        REACT_API_URL: http://library-be:8080
+        REACT_APP_API_URL: http://localhost:5000
     container_name: library-fe-app
     ports:
       - "80:80"
